@@ -99,9 +99,9 @@ class Player implements Serializable{
 				this.aposta = 0;
 				if (this.balance < 50) {
 					System.out.println("Oi");
-					controller.popupJOption("Ah, então é verdade que suas economias "
+					controller.popupJOption("Ah, entÃ£o Ã© verdade que suas economias "
 							+ "finalmente se candidataram ao Guinness como o maior fiasco "
-							+ "financeiro da história? Que audácia fabulosa!");
+							+ "financeiro da histÃ³ria? Que audÃ¡cia fabulosa!");
 					facadeModel.setEndGame();
 				}
 
@@ -142,9 +142,9 @@ class Player implements Serializable{
 			}
 		}
 
-		// Ajusta o valor do Ás de 11 para 1 se o total ultrapassar 21
+		// Ajusta o valor do Ã�s de 11 para 1 se o total ultrapassar 21
 		while (total > 21 && numAses > 0) {
-			total -= 10; // Subtrai 10 por Ás para ajustá-lo de 11 para 1
+			total -= 10; // Subtrai 10 por Ã�s para ajustÃ¡-lo de 11 para 1
 			numAses--;
 		}
 
@@ -183,6 +183,15 @@ class Player implements Serializable{
 
 	public ArrayList<Carta> getMao() {
 		return this.mao;
+	}
+
+
+	public void setAposta(int aposta) {
+		this.aposta = aposta;
+	}
+	
+	public void setApostaSplit(int apostaSplit) {
+		this.apostaSplit = apostaSplit;
 	}
 
 	public void setMao(ArrayList<Carta> novaMao) {
