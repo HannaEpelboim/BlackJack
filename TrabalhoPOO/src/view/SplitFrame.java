@@ -98,7 +98,7 @@ public class SplitFrame extends JFrame{
     }
 
     public void limpaPainel() {
-        painelCartas.setCardImages(new ArrayList<>()); // Limpa as imagens
+        painelCartas.setCardImages(null); // Limpa as imagens
     }
 
     public void deleteFrame() {
