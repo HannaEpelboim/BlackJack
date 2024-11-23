@@ -6,7 +6,7 @@ import java.awt.Image;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PainelCartas extends JPanel {
+class PainelCartas extends JPanel {
     private List<Image> cardImages;
 
     public PainelCartas() {

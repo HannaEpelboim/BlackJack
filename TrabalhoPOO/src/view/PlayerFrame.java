@@ -42,8 +42,7 @@ class PlayerFrame extends JFrame{
         setResizable(false);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         FacadeView facadeView = FacadeView.getInstance();
-        setBounds(facadeView.getJanelaPrincipalBounds().x + 1050,
-        		466, 205, 350);
+        setBounds(facadeView.getJanelaPrincipalBounds().x + 1050, 466, 205, 350);
         SwingUtilities.updateComponentTreeUI(this);
     }
 
@@ -60,7 +59,6 @@ class PlayerFrame extends JFrame{
         // Carrega as imagens e configura no painel
         List<Image> cardImages = new ArrayList<>();
         for (String caminho : cartasPlayer) {
-            System.out.println(caminho);
             try {
                 ImageIcon icon = new ImageIcon(caminho);
                 Image img = icon.getImage();
@@ -77,21 +75,13 @@ class PlayerFrame extends JFrame{
         FacadeView facadeView = FacadeView.getInstance();
         labelPontos.setText("Pontos: " + facadeView.getSomaCarta("Player"));
     }
-    
-    public void updateRodaPe(boolean turn) {
-    	if(turn) {
-    		rodaPe.setText("YOUR TURN");
-    	}else {
-    		rodaPe.setText("");
-    	}
-    }
 
     public void addLabel() {
         labelPontos = new JLabel("Pontos: ", SwingConstants.CENTER);
         labelPontos.setVerticalAlignment(SwingConstants.TOP);
         add(labelPontos, BorderLayout.NORTH);
         
-        rodaPe = new JLabel("YOUR TURN", SwingConstants.CENTER);
+        rodaPe = new JLabel("", SwingConstants.CENTER);
         rodaPe.setVerticalAlignment(SwingConstants.BOTTOM);
         add(rodaPe, BorderLayout.SOUTH);
     }

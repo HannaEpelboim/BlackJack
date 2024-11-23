@@ -35,9 +35,6 @@ class Carta implements Serializable{
 		return baralho;
 	}
 
-	public void imprimeCarta() {
-		System.out.print(this.naipe + ":" + this.valor + " ");
-	}
 
 	public String getValor() {
 		return this.valor;

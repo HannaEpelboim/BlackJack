@@ -13,99 +13,86 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
-
-public class SplitFrame extends JFrame{
+class SplitFrame extends JFrame {
 	private PainelCartas painelCartas;
-    private JLabel labelPontos;
-    private JLabel rodaPe;
+	private JLabel labelPontos;
+	private JLabel rodaPe;
 
-    /* vvvvvvvvv EXEMPLO SINGLETON vvvvvvvvv */
-    private static SplitFrame instance;
+	/* vvvvvvvvv EXEMPLO SINGLETON vvvvvvvvv */
+	private static SplitFrame instance;
 
-    private SplitFrame() {
-    }
+	private SplitFrame() {
+	}
 
-    public static synchronized SplitFrame getInstance() {
-        if (instance == null) {
-            instance = new SplitFrame();
-        }
+	public static synchronized SplitFrame getInstance() {
+		if (instance == null) {
+			instance = new SplitFrame();
+		}
 
-        return instance;
-    }
-    /* ^^^^^^^^^ EXEMPLO SINGLETON ^^^^^^^^^ */
+		return instance;
+	}
+	/* ^^^^^^^^^ EXEMPLO SINGLETON ^^^^^^^^^ */
 
-    public void initComponents() {
-        painelCartas = new PainelCartas();
-        setLayout(new BorderLayout());
-        addLabel();
-        add(painelCartas, BorderLayout.CENTER);
-        setVisible(true);
-        setResizable(false);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        FacadeView facadeView = FacadeView.getInstance();
-        setBounds(facadeView.getJanelaPrincipalBounds().x + 1050,
-        		266, 205, 350);
-        SwingUtilities.updateComponentTreeUI(this);
-    }
+	public void initComponents() {
+		painelCartas = new PainelCartas();
+		setLayout(new BorderLayout());
+		addLabel();
+		add(painelCartas, BorderLayout.CENTER);
+		setVisible(true);
+		setResizable(false);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		FacadeView facadeView = FacadeView.getInstance();
+		setBounds(facadeView.getJanelaPrincipalBounds().x + 1265, 466, 205, 350);
+		SwingUtilities.updateComponentTreeUI(this);
+	}
 
-    public void updateCartas(String tipo) {
-        limpaPainel();
-        FacadeView facadeView = FacadeView.getInstance();
-        ArrayList<String> playerMao = facadeView.importaCarta(tipo);
-        ArrayList<String> cartasPlayer = new ArrayList<>();
+	public void updateCartas(String tipo) {
+		limpaPainel();
+		FacadeView facadeView = FacadeView.getInstance();
+		ArrayList<String> playerMao = facadeView.importaCarta(tipo);
+		ArrayList<String> cartasPlayer = new ArrayList<>();
 
-        for (int i = 0; i < playerMao.size(); i += 2) {
-            cartasPlayer.add("src/cartasImg/" + playerMao.get(i + 1) + playerMao.get(i) + ".gif");
-        }
+		for (int i = 0; i < playerMao.size(); i += 2) {
+			cartasPlayer.add("src/cartasImg/" + playerMao.get(i + 1) + playerMao.get(i) + ".gif");
+		}
 
-        // Carrega as imagens e configura no painel
-        List<Image> cardImages = new ArrayList<>();
-        for (String caminho : cartasPlayer) {
-            System.out.println(caminho);
-            try {
-                ImageIcon icon = new ImageIcon(caminho);
-                Image img = icon.getImage();
-                cardImages.add(img);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+		// Carrega as imagens e configura no painel
+		List<Image> cardImages = new ArrayList<>();
+		for (String caminho : cartasPlayer) {
+			try {
+				ImageIcon icon = new ImageIcon(caminho);
+				Image img = icon.getImage();
+				cardImages.add(img);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
-        painelCartas.setCardImages(cardImages);
-    }
+		painelCartas.setCardImages(cardImages);
+	}
 
-    public void updatePontos() {
-        FacadeView facadeView = FacadeView.getInstance();
-        labelPontos.setText("Pontos: " + facadeView.getSomaCarta("Split"));
-    }
-    
-    public void updateRodaPe(boolean turn) {
-    	if(turn) {
-    		rodaPe.setText("YOUR TURN");
-    	}else {
-    		rodaPe.setText("");
-    	}
-    }
+	public void updatePontos() {
+		FacadeView facadeView = FacadeView.getInstance();
+		labelPontos.setText("Pontos: " + facadeView.getSomaCarta("Split"));
+	}
 
-    public void addLabel() {
-        labelPontos = new JLabel("Pontos: ", SwingConstants.CENTER);
-        labelPontos.setVerticalAlignment(SwingConstants.TOP);
-        add(labelPontos, BorderLayout.NORTH);
-        
-        rodaPe = new JLabel("YOUR TURN", SwingConstants.CENTER);
-        rodaPe.setVerticalAlignment(SwingConstants.BOTTOM);
-        add(rodaPe, BorderLayout.SOUTH);
-    }
+	public void addLabel() {
+		labelPontos = new JLabel("Pontos: ", SwingConstants.CENTER);
+		labelPontos.setVerticalAlignment(SwingConstants.TOP);
+		add(labelPontos, BorderLayout.NORTH);
 
-    public void limpaPainel() {
-        painelCartas.setCardImages(null); // Limpa as imagens
-    }
+		rodaPe = new JLabel("", SwingConstants.CENTER);
+		rodaPe.setVerticalAlignment(SwingConstants.BOTTOM);
+		add(rodaPe, BorderLayout.SOUTH);
+	}
 
-    public void deleteFrame() {
-        remove(painelCartas);
-        remove(labelPontos);
-        dispose();
-    }
+	public void limpaPainel() {
+		painelCartas.setCardImages(null); // Limpa as imagens
+	}
+
+	public void deleteFrame() {
+		remove(painelCartas);
+		remove(labelPontos);
+		dispose();
+	}
 }
-
-	

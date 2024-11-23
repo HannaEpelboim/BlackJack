@@ -151,14 +151,11 @@ class Player implements Serializable{
 		return total;
 	}
 
-	public void exibeMao() {
-		for (Carta carta : this.mao) {
-			carta.imprimeCarta();
-		}
-	}
 
 	public void limpaMao() {
 		this.mao.removeAll(mao);
+		FacadeModel facadeModel = FacadeModel.getInstance();
+		facadeModel.notifica();
 	}
 
 	public boolean podeApostar(int valor) {

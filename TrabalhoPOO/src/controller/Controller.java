@@ -89,6 +89,31 @@ public class Controller {
 		return false;
 	}
 	
+	public void setAlreadyHited(boolean alreadyHited) {
+		FacadeModel facadeModel = FacadeModel.getInstance();
+		facadeModel.setAlreadyHited(alreadyHited);
+	}
+	
+	public void setDealed(boolean bool) {
+		FacadeModel facadeModel = FacadeModel.getInstance();
+		facadeModel.setDealed(bool);
+	}
+	
+	public void setSplited(boolean bool) {
+		FacadeModel facadeModel = FacadeModel.getInstance();
+		facadeModel.setSplited(bool);
+	}
+	
+	public void setAlreadySplited(boolean bool) {
+		FacadeModel facadeModel = FacadeModel.getInstance();
+		facadeModel.setAlreadySplited(bool);
+	}
+	
+	public void setBurstBeforeSplit(boolean bool) {
+		FacadeModel facadeModel = FacadeModel.getInstance();
+		facadeModel.setBurstBeforeSplit(bool);
+	}
+	
 	public void popupJOption(String frase) {
 		JOptionPane.showMessageDialog(null, frase);
 	}

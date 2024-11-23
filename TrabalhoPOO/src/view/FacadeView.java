@@ -51,9 +51,10 @@ public class FacadeView implements Observer {
 	public void loadGame() {
 		JanelaPrincipal janelaPrincipal = JanelaPrincipal.getInstance();
 		janelaPrincipal.load();
-		
+
 		FacadeView facadeView = FacadeView.getInstance();
-        facadeView.setPopupVisibility(false);
+		Popup popup = Popup.getInstance();
+		popup.setVisible(false);
 		facadeView.atualizaView();
 	}
 
@@ -70,7 +71,6 @@ public class FacadeView implements Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("Atualiza");
 		FacadeView facadeView = FacadeView.getInstance();
 		facadeView.atualizaView();
 
@@ -79,6 +79,7 @@ public class FacadeView implements Observer {
 	public void atualizaView() {
 		JanelaPrincipal janelaPrincipal = JanelaPrincipal.getInstance();
 		FacadeModel facadeModel = FacadeModel.getInstance();
+		FacadeView facadeView = FacadeView.getInstance();
 		PlayerFrame playerFrame = PlayerFrame.getInstance();
 		DealerFrame dealerFrame = DealerFrame.getInstance();
 		SplitFrame splitFrame = SplitFrame.getInstance();
@@ -86,18 +87,14 @@ public class FacadeView implements Observer {
 		janelaPrincipal.updateLabels();
 		playerFrame.updateCartas("Player");
 		playerFrame.updatePontos();
-		SwingUtilities.updateComponentTreeUI(playerFrame);
 
 		dealerFrame.updateCartas("Dealer");
 		dealerFrame.updatePontos();
-		SwingUtilities.updateComponentTreeUI(dealerFrame);
 
 		splitFrame.updateCartas("Split");
 		splitFrame.updatePontos();
 		if (facadeModel.getSomaCartas("Split") == 0) {
 			splitFrame.setVisible(false);
-		} else {
-			SwingUtilities.updateComponentTreeUI(splitFrame);
 		}
 
 		janelaPrincipal.revalidate();
@@ -107,7 +104,12 @@ public class FacadeView implements Observer {
 			janelaPrincipal.endGame();
 		}
 		facadeModel.unSetEndGame();
+		
+		SwingUtilities.updateComponentTreeUI(playerFrame);
+		SwingUtilities.updateComponentTreeUI(dealerFrame);
+		SwingUtilities.updateComponentTreeUI(splitFrame);
 	}
+
 
 	public int getAposta(String tipo) {
 		FacadeModel facadeModel = FacadeModel.getInstance();
@@ -167,7 +169,6 @@ public class FacadeView implements Observer {
 	}
 
 	public ArrayList<String> importaCarta(String tipo) {
-		System.out.println("Importando cartas");
 		FacadeModel facadeModel = FacadeModel.getInstance();
 		if (tipo == "Player" || tipo == "Dealer" || tipo == "Split") {
 			return facadeModel.exportaCartas(tipo);
@@ -194,8 +195,6 @@ public class FacadeView implements Observer {
 	public void finalizaPartida() {
 		Controller controller = Controller.getInstance();
 		controller.finalizaPartida();
-		JanelaPrincipal janelaPrincipal = JanelaPrincipal.getInstance();
-		janelaPrincipal.canDeal();
 	}
 
 	public int getSomaCarta(String tipo) {
@@ -227,19 +226,9 @@ public class FacadeView implements Observer {
 		return facadeModel.isDealed();
 	}
 
-	public void setDealed(boolean dealed) {
-		FacadeModel facadeModel = FacadeModel.getInstance();
-		facadeModel.setDealed(dealed);
-	}
-
 	public boolean isSplited() {
 		FacadeModel facadeModel = FacadeModel.getInstance();
 		return facadeModel.isSplited();
-	}
-
-	public void setSplited(boolean splited) {
-		FacadeModel facadeModel = FacadeModel.getInstance();
-		facadeModel.setSplited(splited);
 	}
 
 	public boolean isAlreadySplited() {
@@ -247,18 +236,39 @@ public class FacadeView implements Observer {
 		return facadeModel.isAlreadySplited();
 	}
 
-	public void setAlreadySplited(boolean alreadySplited) {
-		FacadeModel facadeModel = FacadeModel.getInstance();
-		facadeModel.setAlreadyHited(alreadySplited);
-	}
-
 	public boolean isAlreadyHited() {
 		FacadeModel facadeModel = FacadeModel.getInstance();
 		return facadeModel.isAlreadyHited();
 	}
-
-	public void setAlreadyHited(boolean alreadyHited) {
+	
+	public boolean isBurstBeforeSplit() {
 		FacadeModel facadeModel = FacadeModel.getInstance();
-		facadeModel.setAlreadyHited(alreadyHited);
+		return facadeModel.isBurstBeforeSplit();
 	}
+	
+	public void setAlreadyHited(boolean alreadyHited) {
+		Controller controller = Controller.getInstance();
+		controller.setAlreadyHited(alreadyHited);
+	}
+	
+	public void setDealed(boolean dealed) {
+		Controller controller = Controller.getInstance();
+		controller.setDealed(dealed);
+	}
+	
+	public void setSplited(boolean splited) {
+		Controller controller = Controller.getInstance();
+		controller.setSplited(splited);
+	}
+	
+	public void setAlreadySplited(boolean alreadySplited) {
+		Controller controller = Controller.getInstance();
+		controller.setAlreadySplited(alreadySplited);
+	}
+	
+	public void setBurstBeforeSplit(boolean bool) {
+		Controller controller = Controller.getInstance();
+		controller.setBurstBeforeSplit(bool);
+	}
+
 }

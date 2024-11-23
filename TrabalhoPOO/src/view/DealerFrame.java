@@ -57,7 +57,6 @@ class DealerFrame extends JFrame {
         // Carrega as imagens e configura no painel
         List<Image> cardImages = new ArrayList<>();
         for (String caminho : cartasPlayer) {
-            System.out.println(caminho);
             try {
                 ImageIcon icon = new ImageIcon(caminho);
                 Image img = icon.getImage();

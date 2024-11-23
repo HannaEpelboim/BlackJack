@@ -71,11 +71,6 @@ class JanelaPrincipal extends JFrame implements Serializable {
 
 		janelaPrincipal.pack();
 		janelaPrincipal.setVisible(true);
-
-		facadeView.setDealed(false);
-		facadeView.setSplited(false);
-		facadeView.setAlreadySplited(false);
-		facadeView.setAlreadyHited(false);
 	}
 
 	public void load() {
@@ -192,18 +187,17 @@ class JanelaPrincipal extends JFrame implements Serializable {
 							facadeView.hitPlayer();
 							facadeView.setAlreadyHited(true);
 							if (controller.checkPoints("Player")) {
+								facadeView.finalizaPartida();
 								janelaPrincipal.canDeal();
-							} else {
-								if (controller.checkPoints("Dealer")) {
-									janelaPrincipal.canDeal();
-								}
 							}
 						} else {
 							facadeView.hitSplit();
 							if (controller.checkPoints("Split")) {
+								if(facadeView.isBurstBeforeSplit()) {
+									janelaPrincipal.canDeal();
+								}
 								facadeView.setSplited(false);
-								playerFrame.updateRodaPe(true);
-								splitFrame.updateRodaPe(false);
+								facadeView.finalizaPartida();
 							}
 						}
 					}
@@ -212,12 +206,16 @@ class JanelaPrincipal extends JFrame implements Serializable {
 					if (facadeView.isDealed()) {
 						System.out.println("Stand");
 						if (facadeView.isSplited()) {
-							playerFrame.updateRodaPe(true);
-							splitFrame.updateRodaPe(false);
+							if(facadeView.isBurstBeforeSplit()) {
+								facadeView.hitDealer();
+								facadeView.finalizaPartida();
+								janelaPrincipal.canDeal();
+							}
 							facadeView.setSplited(false);
 						} else {
 							facadeView.hitDealer();
 							facadeView.finalizaPartida();
+							janelaPrincipal.canDeal();
 						}
 					}
 				}
@@ -234,9 +232,11 @@ class JanelaPrincipal extends JFrame implements Serializable {
 						facadeView.distribuiCartas();
 						facadeView.setDealed(true);
 						if (controller.checkPoints("Player")) {
+							facadeView.finalizaPartida();
 							janelaPrincipal.canDeal();
 						} else {
 							if (controller.checkPoints("Dealer")) {
+								facadeView.finalizaPartida();
 								janelaPrincipal.canDeal();
 							}
 						}
@@ -260,12 +260,26 @@ class JanelaPrincipal extends JFrame implements Serializable {
 						if (controller.podeSplit()) {
 							facadeView.incAposta(facadeView.getAposta("Player"), true);
 							splitFrame.setVisible(true);
-							splitFrame.updateRodaPe(true);
-							playerFrame.updateRodaPe(false);
 							facadeView.hitSplit();
 							facadeView.hitPlayer();
 							facadeView.setAlreadySplited(true);
 							facadeView.setSplited(true);
+							if (controller.checkPoints("Split")) {
+								if (controller.checkPoints("Player")) {
+									janelaPrincipal.canDeal();
+								}
+								facadeView.finalizaPartida();
+								facadeView.setSplited(false);
+								splitFrame.setVisible(false);
+								System.out.println(facadeView.getSomaCarta("Split"));
+								System.out.println(facadeView.getSomaCarta("Player"));
+								
+							} else {
+								if (controller.checkPoints("Player")) {
+									System.out.println("Player algo");
+									facadeView.setBurstBeforeSplit(true);
+								}
+							}
 						}
 					}
 				}
@@ -276,29 +290,27 @@ class JanelaPrincipal extends JFrame implements Serializable {
 							facadeView.incAposta(facadeView.getAposta("Player"), false);
 							facadeView.hitPlayer();
 							if (controller.checkPoints("Player")) {
+								facadeView.finalizaPartida();
 								janelaPrincipal.canDeal();
 							} else {
 								facadeView.hitDealer();
 								if (controller.checkPoints("Dealer")) {
 									janelaPrincipal.canDeal();
-								} else {
-
-									facadeView.finalizaPartida();
 								}
+								facadeView.finalizaPartida();
 							}
-
-						} else {
-							facadeView.incAposta(facadeView.getAposta("Split"), true);
-							facadeView.hitSplit();
-							if (controller.checkPoints("Split")) {
-								facadeView.setSplited(false);
-							}
-							facadeView.setSplited(false);
-							playerFrame.updateRodaPe(true);
-							splitFrame.updateRodaPe(false);
 						}
+
+					} else {
+						facadeView.incAposta(facadeView.getAposta("Split"), true);
+						facadeView.hitSplit();
+						if (controller.checkPoints("Split")) {
+							facadeView.setSplited(false);
+						}
+						facadeView.setSplited(false);
 					}
 				}
+
 				if (x >= 35 && x <= 35 + 60 && y >= 280 && y <= 280 + 60) {
 					if (!facadeView.isDealed()) {
 						if (SwingUtilities.isRightMouseButton(e)) {
@@ -363,6 +375,7 @@ class JanelaPrincipal extends JFrame implements Serializable {
 		};
 
 		janelaPrincipal.addMouseListener(mouseAdapter);
+
 	}
 
 	public void addLabels() {
@@ -390,8 +403,10 @@ class JanelaPrincipal extends JFrame implements Serializable {
 	}
 
 	public void canDeal() {
+		System.out.println("Opa");
 		final SplitFrame splitFrame = SplitFrame.getInstance();
 		final FacadeView facadeView = FacadeView.getInstance();
+		facadeView.setBurstBeforeSplit(false);
 		facadeView.setDealed(false);
 		facadeView.setAlreadySplited(false);
 		facadeView.setAlreadyHited(false);
