@@ -1,0 +1,1 @@
+Trabalho desenvolvido na disciplina de Programação Orientada a Objetos. Conseguimos jogar o jogo com suas funcionalidades básicas (hit, split, double, sunder), conseguimos resetar (clear), sair por meio do exit e salvar e carregar uma partida. Para iniciar a rodada, deve-se fazer uma aposta mínima de 50 e clicar Deal
