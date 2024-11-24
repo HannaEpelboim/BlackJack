@@ -75,6 +75,14 @@ class PlayerFrame extends JFrame{
         FacadeView facadeView = FacadeView.getInstance();
         labelPontos.setText("Pontos: " + facadeView.getSomaCarta("Player"));
     }
+    
+    public void updateRodaPe(boolean bool) {
+		if(bool) {
+			this.rodaPe.setText("YOUR TURN");
+		}else {
+			this.rodaPe.setText("");
+		}
+	}
 
     public void addLabel() {
         labelPontos = new JLabel("Pontos: ", SwingConstants.CENTER);
@@ -93,6 +101,7 @@ class PlayerFrame extends JFrame{
     public void deleteFrame() {
         remove(painelCartas);
         remove(labelPontos);
+		remove(rodaPe);
         dispose();
     }
 }

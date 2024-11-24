@@ -200,6 +200,7 @@ class JanelaPrincipal extends JFrame implements Serializable {
 								facadeView.finalizaPartida();
 							}
 						}
+						facadeView.atualizaView();
 					}
 				}
 				if (x >= 870 && x <= 970 && y >= 670 && y <= 700) {
@@ -240,6 +241,7 @@ class JanelaPrincipal extends JFrame implements Serializable {
 								janelaPrincipal.canDeal();
 							}
 						}
+						facadeView.atualizaView();
 					}
 				}
 				if (x >= 530 && x <= 650 && y >= 730 && y <= 790) {
@@ -283,6 +285,7 @@ class JanelaPrincipal extends JFrame implements Serializable {
 								}
 							}
 						}
+						facadeView.atualizaView();
 					}
 				}
 				if (x >= 230 && x <= 350 && y >= 730 && y <= 790) {
@@ -301,6 +304,9 @@ class JanelaPrincipal extends JFrame implements Serializable {
 								}
 								facadeView.finalizaPartida();
 							}
+							
+
+							facadeView.atualizaView();
 						}
 
 					} else {

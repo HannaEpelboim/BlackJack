@@ -186,7 +186,7 @@ public class FacadeModel extends Observable implements Serializable {
 			split.limpaMao();
 			player.atualizaBalanco(estado, 0, true);
 
-			if (estado != "Burst" && estado != "Blackjack" && !this.burstBeforeSplit) {
+			if ((estado != "Burst" && estado != "Blackjack") || this.burstBeforeSplit) {
 				FacadeModel facadeModel = FacadeModel.getInstance();
 				facadeModel.finalizaPartida();
 			}

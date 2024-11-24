@@ -97,6 +97,14 @@ public class FacadeView implements Observer {
 		if (facadeModel.getSomaCartas("Split") == 0) {
 			splitFrame.setVisible(false);
 		}
+		
+		if(facadeModel.isSplited()) {
+			splitFrame.updateRodaPe(true);
+			playerFrame.updateRodaPe(false);
+		}else {
+			splitFrame.updateRodaPe(false);
+			playerFrame.updateRodaPe(true);
+		}
 
 		janelaPrincipal.revalidate();
 		janelaPrincipal.repaint();

@@ -75,13 +75,21 @@ class SplitFrame extends JFrame {
 		FacadeView facadeView = FacadeView.getInstance();
 		labelPontos.setText("Pontos: " + facadeView.getSomaCarta("Split"));
 	}
+	
+	public void updateRodaPe(boolean bool) {
+		if(bool) {
+			this.rodaPe.setText("YOUR TURN");
+		}else {
+			this.rodaPe.setText("");
+		}
+	}
 
 	public void addLabel() {
 		labelPontos = new JLabel("Pontos: ", SwingConstants.CENTER);
 		labelPontos.setVerticalAlignment(SwingConstants.TOP);
 		add(labelPontos, BorderLayout.NORTH);
 
-		rodaPe = new JLabel("", SwingConstants.CENTER);
+		rodaPe = new JLabel("YOUR TURN", SwingConstants.CENTER);
 		rodaPe.setVerticalAlignment(SwingConstants.BOTTOM);
 		add(rodaPe, BorderLayout.SOUTH);
 	}
@@ -93,6 +101,7 @@ class SplitFrame extends JFrame {
 	public void deleteFrame() {
 		remove(painelCartas);
 		remove(labelPontos);
+		remove(rodaPe);
 		dispose();
 	}
 }
