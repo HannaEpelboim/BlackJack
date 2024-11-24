@@ -15,6 +15,8 @@ import javax.swing.JPanel;
 import controller.Controller;
 
 class Popup extends JFrame{
+	JButton newGame;
+	JButton loadGame;
 	/* vvvvvvvvv EXEMPLO SINGLETON vvvvvvvvv */
 	
 	private static Popup instance;
@@ -58,7 +60,7 @@ class Popup extends JFrame{
 		    };
 		};
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER));
-		JButton loadGame = new JButton("Load Game");
+		loadGame = new JButton("Load Game");
 		loadGame.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -66,7 +68,7 @@ class Popup extends JFrame{
 				controller.loadGame();
 			}
 		});
-		JButton newGame = new JButton("New Game");
+		newGame = new JButton("New Game");
 		newGame.addActionListener(new ActionListener() {
 			
 			@Override
@@ -80,5 +82,10 @@ class Popup extends JFrame{
 		panel.add(newGame);
 		
 		popup.add(panel);
+	}
+	
+	public void deleteFrame() {
+		removeAll();
+		dispose();
 	}
 }

@@ -55,6 +55,7 @@ public class FacadeView implements Observer {
 		FacadeView facadeView = FacadeView.getInstance();
 		Popup popup = Popup.getInstance();
 		popup.setVisible(false);
+		SwingUtilities.updateComponentTreeUI(popup);
 		facadeView.atualizaView();
 	}
 

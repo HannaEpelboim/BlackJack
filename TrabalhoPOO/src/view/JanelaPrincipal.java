@@ -270,6 +270,8 @@ class JanelaPrincipal extends JFrame implements Serializable {
 								}
 								facadeView.finalizaPartida();
 								facadeView.setSplited(false);
+								splitFrame.deleteFrame();
+								facadeView.getSplitFrame();
 								splitFrame.setVisible(false);
 								System.out.println(facadeView.getSomaCarta("Split"));
 								System.out.println(facadeView.getSomaCarta("Player"));
