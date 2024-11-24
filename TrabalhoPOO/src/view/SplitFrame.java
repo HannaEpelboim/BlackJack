@@ -42,7 +42,7 @@ class SplitFrame extends JFrame {
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		FacadeView facadeView = FacadeView.getInstance();
-		setBounds(facadeView.getJanelaPrincipalBounds().x + 1265, 466, 205, 350);
+		setBounds(facadeView.getJanelaPrincipalBounds().x + 1050, 333, 205, 350);
 		SwingUtilities.updateComponentTreeUI(this);
 	}
 
